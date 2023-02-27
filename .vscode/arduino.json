@@ -2,5 +2,5 @@
     "port": "/dev/ttyACM0",
     "board": "arduino:avr:uno",
     "programmer": "avrisp",
-    "sketch": "Learning/While/While.ino"
+    "sketch": "Learning/For/For.ino"
 }
