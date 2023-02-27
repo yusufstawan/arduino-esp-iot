@@ -2,5 +2,5 @@
     "port": "/dev/ttyACM0",
     "board": "arduino:avr:uno",
     "programmer": "avrisp",
-    "sketch": "source-code/blink/blink.ino"
+    "sketch": "LedPushButton/LedPushButton.ino"
 }
