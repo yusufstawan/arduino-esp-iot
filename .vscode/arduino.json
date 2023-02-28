@@ -2,5 +2,5 @@
     "port": "/dev/ttyACM0",
     "board": "arduino:avr:uno",
     "programmer": "avrisp",
-    "sketch": "Bangjo/Bangjo.ino"
+    "sketch": "ArduinoOutput/Servo/Servo.ino"
 }
