@@ -4,7 +4,9 @@
  * Board  : Arduino UNO
  * Output : Serial (9600)
  * DATA : 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13
+ * Recommended pin use: 7
  *********************************/
+
 #include <DHT.h> //library DHT
 
 // pilih salah satu pin untuk koneksi sensor
@@ -44,7 +46,7 @@ void loop()
   // cek apakah sensor terhubung
   if (isnan(humi) || isnan(temp))
   {
-    Serial.println("Sensor tidak terhubung");
+    Serial.println("Sensor tidak terhubung!");
     return;
   }
 
