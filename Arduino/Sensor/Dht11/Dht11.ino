@@ -11,6 +11,7 @@
 // jika menggunakan pin 0 & 1, maka serial monitor tidak bisa digunakan
 // #define DHTPIN 0
 // #define DHTPIN 1
+
 // #define DHTPIN 2
 // #define DHTPIN 3
 // #define DHTPIN 4
@@ -29,7 +30,6 @@ DHT dht(DHTPIN, DHTTYPE); // set sensor + koneksi pin
 
 float humi, temp; // deklarasi variabel
 
-// make code for dht11 sensor and arduino uno
 void setup()
 {
   Serial.begin(9600); // set baudrate
