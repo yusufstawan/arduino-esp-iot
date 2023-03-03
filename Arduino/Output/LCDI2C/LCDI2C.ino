@@ -5,7 +5,6 @@
  *  Gnd  -- GND
  *  SDA  -- pin A4
  *  SCL  -- pin A5
- *  www.ardutech.com
  *  *********************************/
 #include <Wire.h>              // Library komunikasi I2C
 #include <LiquidCrystal_I2C.h> // Library modul I2C LCD
