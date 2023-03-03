@@ -1,4 +1,11 @@
-// Sertakan library Servo
+/*********************************
+ * Sensor : Servo
+ * Board  : Arduino UNO
+ * Output : Serial (9600)
+ * Kabel Orange : 3, 5, 6, 9, 10, 11
+ *********************************/
+
+// library Servo
 #include <Servo.h>
 
 Servo myservo;
