@@ -1,7 +1,6 @@
 {
-    "port": "/dev/ttyUSB0",
-    "board": "esp32:esp32:esp32",
+    "port": "/dev/ttyACM0",
+    "board": "arduino:avr:uno",
     "programmer": "avrisp",
-    "sketch": "ESP32/Output/LCDI2C/LCDI2C.ino",
-    "configuration": "PSRAM=disabled,PartitionScheme=default,CPUFreq=240,FlashMode=qio,FlashFreq=80,FlashSize=4M,UploadSpeed=921600,LoopCore=1,EventsCore=1,DebugLevel=none"
+    "sketch": "Arduino/Output/LCDI2C/LCDI2C.ino"
 }
