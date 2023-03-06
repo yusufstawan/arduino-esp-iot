@@ -1,32 +1,46 @@
-/*
- * Created by ArduinoGetStarted.com
- *
- * This example code is in the public domain
- *
- * Tutorial page: https://arduinogetstarted.com/tutorials/arduino-water-sensor
- */
+/*********************************
+ * Monitoring Ketinggian Air
+ * Sensor : Water Level Sensor
+ * Board  : Arduino UNO
+ * Output : Serial (9600)
+ * DATA : A0, A1, A2, A3, A4, A5
+ *********************************/
 
-#define POWER_PIN 7
-#define SIGNAL_PIN A5
+// Sensor pins
+#define sensorPower 7
+#define sensorPin A0
 
-int value = 0; // variable to store the sensor value
+// Value for storing water level
+int val = 0;
 
 void setup()
 {
+  // Set D7 as an OUTPUT
+  pinMode(sensorPower, OUTPUT);
+
+  // Set to LOW so no power flows through the sensor
+  digitalWrite(sensorPower, LOW);
+
   Serial.begin(9600);
-  pinMode(POWER_PIN, OUTPUT);   // configure D7 pin as an OUTPUT
-  digitalWrite(POWER_PIN, LOW); // turn the sensor OFF
 }
 
 void loop()
 {
-  digitalWrite(POWER_PIN, HIGH);  // turn the sensor ON
-  delay(10);                      // wait 10 milliseconds
-  value = analogRead(SIGNAL_PIN); // read the analog value from sensor
-  digitalWrite(POWER_PIN, LOW);   // turn the sensor OFF
+  // get the reading from the function below and print it
+  int level = readSensor();
 
-  Serial.print("Sensor value: ");
-  Serial.println(value);
+  Serial.print("Water level: ");
+  Serial.println(level);
 
   delay(1000);
+}
+
+// This is a function used to get the reading
+int readSensor()
+{
+  digitalWrite(sensorPower, HIGH); // Turn the sensor ON
+  delay(10);                       // wait 10 milliseconds
+  val = analogRead(sensorPin);     // Read the analog value form sensor
+  digitalWrite(sensorPower, LOW);  // Turn the sensor OFF
+  return val;                      // send current reading
 }
