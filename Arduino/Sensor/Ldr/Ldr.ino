@@ -1,4 +1,17 @@
+/*********************************
+ * Sensor : LDR (Light Dependant Resistor)
+ * Board  : Arduino UNO
+ * Output : Serial (9600)
+ * Analog : A0, A1, A2, A3, A4, A5
+ * Recommended pin use: A0
+ *********************************/
+
 const int pin_ldr = A0;
+// const int pin_ldr = A1;
+// const int pin_ldr = A2;
+// const int pin_ldr = A3;
+// const int pin_ldr = A4;
+// const int pin_ldr = A5;
 
 void setup()
 {
