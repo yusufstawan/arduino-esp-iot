@@ -4,7 +4,6 @@
  * Board  : ESP32
  * Output : Serial (9600)
  * DATA : D4, D2, D15, D13, D12, D14, D27, D26, D25, D33, D32, D35, D34, VN, VP
- * Recommended pin use: D2 (GPIO 2)
  *********************************/
 
 #define ADC_VREF_mV 3300.0 // in millivolt
