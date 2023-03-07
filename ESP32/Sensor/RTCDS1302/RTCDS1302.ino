@@ -1,8 +1,14 @@
+/*********************************
+ * Sensor : RTC DS1302
+ * Board  : ESP32
+ * Output : Serial (9600)
+ *********************************/
+
 // memanggil library header virtuabotixRTC
 #include <virtuabotixRTC.h>
 
 // Inisialisasi pin (CLK, DAT, RST)
-virtuabotixRTC myRTC(6, 7, 8);
+virtuabotixRTC myRTC(15, 2, 4);
 
 void setup()
 {
@@ -12,9 +18,8 @@ void setup()
   // penulisan data pertama kali dan disarankan saat transfer
   // ke-2 ini tidak digunakan dikarenakan akan menghapus data
   // sebelumnya
-  myRTC.setDS1302Time(00, 59, 23, 6, 20, 10, 2017);
+  myRTC.setDS1302Time(13, 23, 13, 7, 07, 03, 2023);
   // detik, menit, jam, hari dalam seminggu, tanggal, bulan, tahun
-  //  00:59:23 "Rabu" 7-September-2017
 }
 
 void loop()
