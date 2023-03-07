@@ -8,6 +8,9 @@
 #include <virtuabotixRTC.h>
 
 // Inisialisasi pin (CLK, DAT, RST)
+// CLK = 6
+// DAT = 7
+// RST = 8
 virtuabotixRTC myRTC(6, 7, 8);
 
 void setup()

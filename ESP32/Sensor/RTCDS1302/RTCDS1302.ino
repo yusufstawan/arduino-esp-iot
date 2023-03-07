@@ -8,6 +8,9 @@
 #include <virtuabotixRTC.h>
 
 // Inisialisasi pin (CLK, DAT, RST)
+// CLK = D15 (GPIO 15)
+// DAT = D2 (GPIO 2)
+// RST = D4 (GPIO 4)
 virtuabotixRTC myRTC(15, 2, 4);
 
 void setup()
