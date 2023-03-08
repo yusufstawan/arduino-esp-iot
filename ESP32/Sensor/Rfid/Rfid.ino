@@ -3,11 +3,11 @@
  * Sensor : RFID-RC522
  * Board  : ESP32
  * Output : Serial (9600)
- * SDA    : 21
- * RST    : 27
- * MOSI   : 23
- * MISO   : 19
- * SCK    : 18
+ * SDA    : D21
+ * RST    : D27
+ * MOSI   : D23
+ * MISO   : D19
+ * SCK    : D18
  * GND    : GND
  * 3.3V   : 3.3V
  *********************************/
