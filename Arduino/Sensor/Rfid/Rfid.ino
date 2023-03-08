@@ -3,6 +3,13 @@
  * Sensor : RFID-RC522
  * Board  : Arduino UNO
  * Output : Serial (9600)
+ * SDA    : 10
+ * RST    : 9
+ * MOSI   : 11
+ * MISO   : 12
+ * SCK    : 13
+ * GND    : GND
+ * 3.3V   : 3.3V
  *********************************/
 
 byte sda = 10;
