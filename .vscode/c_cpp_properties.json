@@ -229,6 +229,8 @@
                 "/home/yusufstawan/.arduino15/packages/esp32/hardware/esp32/2.0.4/cores/esp32",
                 "/home/yusufstawan/.arduino15/packages/esp32/hardware/esp32/2.0.4/variants/esp32",
                 "/home/yusufstawan/.arduino15/packages/esp32/hardware/esp32/2.0.4/libraries/WiFi/src",
+                "/home/yusufstawan/.arduino15/packages/esp32/hardware/esp32/2.0.4/libraries/WebServer/src",
+                "/home/yusufstawan/.arduino15/packages/esp32/hardware/esp32/2.0.4/libraries/FS/src",
                 "/home/yusufstawan/.arduino15/packages/esp32/tools/xtensa-esp32-elf-gcc/gcc8_4_0-esp-2021r2-patch3/xtensa-esp32-elf/include/c++/8.4.0",
                 "/home/yusufstawan/.arduino15/packages/esp32/tools/xtensa-esp32-elf-gcc/gcc8_4_0-esp-2021r2-patch3/xtensa-esp32-elf/include/c++/8.4.0/xtensa-esp32-elf",
                 "/home/yusufstawan/.arduino15/packages/esp32/tools/xtensa-esp32-elf-gcc/gcc8_4_0-esp-2021r2-patch3/xtensa-esp32-elf/include/c++/8.4.0/backward",
