@@ -2,5 +2,5 @@
     "port": "/dev/ttyUSB0",
     "board": "esp32:esp32:esp32",
     "programmer": "avrisp",
-    "sketch": "ESP32/IOT/WebServerAPmode/WebServerAPmode.ino"
+    "sketch": "ESP32/IOT/WebServerSTAmode/WebServerSTAmode.ino"
 }
