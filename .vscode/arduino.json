@@ -1,6 +1,6 @@
 {
-    "port": "/dev/ttyUSB0",
-    "board": "esp32:esp32:esp32",
+    "port": "/dev/ttyACM0",
+    "board": "arduino:avr:uno",
     "programmer": "avrisp",
-    "sketch": "ESP32/IOT/WebServerSTAmode/WebServerSTAmode.ino"
+    "sketch": "Project/Arduino_LDR_LED/Arduino_LDR_LED.ino"
 }

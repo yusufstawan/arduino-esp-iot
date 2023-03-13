@@ -28,6 +28,7 @@ This is a simple example project for Arduino, ESP32 and ESP8266. It is intended 
 - `ESP32/` - ESP32 sketches
 - `ESP8266/` - ESP8266 sketches
 - `lib/` - Libraries
+- `Project/` - Project files
 - `README.md` - This file
 
 ### License
