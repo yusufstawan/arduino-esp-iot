@@ -16,9 +16,11 @@ void loop()
   if (cahaya < 50)
   {                          // jika nilai sensor cahaya kurang dari 50
     digitalWrite(led, HIGH); // led menyala
+    Serial.println("Lampu menyala");
   }
   else
   {                         // jika nilai sensor cahaya lebih dari 50
     digitalWrite(led, LOW); // led mati
+    Serial.println("Lampu mati");
   }
 }
