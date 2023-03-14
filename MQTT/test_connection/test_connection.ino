@@ -11,8 +11,7 @@ const char *mqtt_broker = mqtt_broker_server;
 const int mqtt_port = mqtt_port_server;
 const char *mqtt_username = mqtt_username_server;
 const char *mqtt_password = mqtt_password_server;
-const char *topic = "/VARX/#";
-// const char *clientID = "mqtt-8RND5XpaRvqFdhfqVr";
+const char *topic = "/VARX/test";
 
 WiFiClient espClient;
 PubSubClient client(espClient);
@@ -40,7 +39,7 @@ void setup()
     Serial.printf("The client %s connects to the public mqtt broker\n", client_id.c_str());
     if (client.connect(client_id.c_str(), mqtt_username, mqtt_password))
     {
-      Serial.println("Coba server......Suksesss");
+      Serial.println("test connected");
     }
     else
     {
@@ -50,7 +49,7 @@ void setup()
     }
   }
   // publish and subscribe
-  client.publish(topic, "Halooo Abanggg ^^");
+  client.publish(topic, "{\"test_connect\": {\"value\":\"Hello World!\",\"unit\":\"OK\"}}");
   client.subscribe(topic);
 }
 
@@ -63,8 +62,6 @@ void callback(char *topic, byte *payload, unsigned int length)
   {
     Serial.print((char)payload[i]);
   }
-  Serial.println();
-  Serial.println("-----------------------");
 }
 
 void loop()
