@@ -1,9 +1,10 @@
+#include "env.h"
 #include <WiFi.h>
 #include <WebServer.h>
 
 /*Put your SSID & Password*/
-const char *ssid = "iot";          // Enter SSID here
-const char *password = "admin123"; // Enter Password here
+const char *ssid = wifi_ssid;
+const char *password = wifi_password;
 
 WebServer server(80);
 

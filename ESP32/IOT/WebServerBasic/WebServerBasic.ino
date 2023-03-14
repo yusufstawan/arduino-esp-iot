@@ -1,7 +1,8 @@
+#include "env.h"
 #include <WiFi.h>
 
-const char *ssid = "iot";
-const char *password = "admin123";
+const char *ssid = wifi_ssid;
+const char *password = wifi_password;
 
 WiFiServer server(80);
 

@@ -1,7 +1,7 @@
 {
-    "port": "/dev/ttyACM0",
+    "port": "/dev/ttyUSB0",
     "board": "esp32:esp32:esp32",
     "programmer": "avrisp",
-    "sketch": "MQTT/Notifikasi dan Kontrol LED Menggunakan MQTT dan ESP32/LED/LED.ino",
+    "sketch": "ESP32/IOT/WebServerBasic/WebServerBasic.ino",
     "configuration": "PSRAM=disabled,PartitionScheme=default,CPUFreq=240,FlashMode=qio,FlashFreq=80,FlashSize=4M,UploadSpeed=921600,LoopCore=1,EventsCore=1,DebugLevel=none"
 }
