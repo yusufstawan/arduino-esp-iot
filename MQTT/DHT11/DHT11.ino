@@ -3,6 +3,7 @@
 #include <PubSubClient.h>
 #include <ArduinoJson.h>
 #include <DHT.h>
+#include <LiquidCrystal_I2C.h>
 
 // WiFi
 const char *ssid = wifi_ssid;
@@ -18,9 +19,10 @@ const char *topic = "/VARX/dht11";
 WiFiClient espClient;
 PubSubClient client(espClient);
 
-#define DHT_SENSOR_PIN 21
+#define DHT_SENSOR_PIN 15
 #define DHT_SENSOR_TYPE DHT11
 DHT dht_sensor(DHT_SENSOR_PIN, DHT_SENSOR_TYPE);
+LiquidCrystal_I2C lcd(0x27, 16, 2); // Setting Alamat I2C LCD dan ukuran LCD
 
 void setup()
 {
@@ -41,6 +43,10 @@ void setup()
 
   // init dht sensor
   dht_sensor.begin();
+  // init lcd
+  lcd.init();
+  lcd.clear();
+  lcd.backlight();
 }
 
 void callback(char *topic, byte *payload, unsigned int length)
@@ -51,6 +57,16 @@ void callback(char *topic, byte *payload, unsigned int length)
   for (int i = 0; i < length; i++)
   {
     Serial.print((char)payload[i]);
+    lcd.setCursor(2, 0);
+    lcd.print("Message: ");
+    lcd.print((char)payload[i]);
+
+    lcd.setCursor(2, 1);
+    lcd.print("Topic: ");
+    lcd.print(topic);
+
+    delay(1000);
+    lcd.clear();
   }
   Serial.println();
   Serial.println("-----------------------");
@@ -66,6 +82,10 @@ void reconnect()
     if (client.connect(client_id.c_str(), mqtt_username, mqtt_password))
     {
       Serial.println("mqtt connected");
+      lcd.setCursor(2, 0);
+      lcd.print("MQTT Connected");
+      delay(1000);
+      lcd.clear();
     }
     else
     {
@@ -93,8 +113,20 @@ void loop()
 
   // publish and subscribe
   client.publish(topic, payload);
-  Serial.printf("Temperature: %.2f C, Humidity: %.2f %%\n", temperature, humidity);
   client.subscribe("/VARX/receive");
+
+  Serial.printf("Temperature: %.2f C, Humidity: %.2f %%\n", temperature, humidity);
+
+  lcd.setCursor(2, 0);
+  lcd.print("Temperature: ");
+  lcd.print(temperature);
+  lcd.print(" C");
+  lcd.setCursor(2, 1);
+  lcd.print("Humidity: ");
+  lcd.print(humidity);
+  lcd.print(" %");
+  delay(200);
+  lcd.clear();
 
   delay(5000);
 
