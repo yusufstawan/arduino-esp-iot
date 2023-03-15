@@ -56,6 +56,26 @@ void callback(char *topic, byte *payload, unsigned int length)
   Serial.println("-----------------------");
 }
 
+void reconnect()
+{
+  if (!client.connected())
+  {
+    String client_id = "esp32-client-";
+    client_id += String(WiFi.macAddress());
+    Serial.printf("The client %s connects to the public mqtt broker\n", client_id.c_str());
+    if (client.connect(client_id.c_str(), mqtt_username, mqtt_password))
+    {
+      Serial.println("mqtt connected");
+    }
+    else
+    {
+      Serial.print("failed with state ");
+      Serial.print(client.state());
+      delay(2000);
+    }
+  }
+}
+
 void loop()
 {
   // send sensor dht 11 to mqtt broker
@@ -78,30 +98,9 @@ void loop()
 
   delay(5000);
 
-  client.loop();
-
   if (!client.connected())
   {
     reconnect();
   }
-}
-
-void reconnect()
-{
-  if (!client.connected())
-  {
-    String client_id = "esp32-client-";
-    client_id += String(WiFi.macAddress());
-    Serial.printf("The client %s connects to the public mqtt broker\n", client_id.c_str());
-    if (client.connect(client_id.c_str(), mqtt_username, mqtt_password))
-    {
-      Serial.println("mqtt connected");
-    }
-    else
-    {
-      Serial.print("failed with state ");
-      Serial.print(client.state());
-      delay(2000);
-    }
-  }
+  client.loop();
 }
