@@ -2,7 +2,6 @@
 #include <WiFi.h>
 #include <PubSubClient.h>
 #include <ArduinoJson.h>
-#include <DHT.h>
 #include <LiquidCrystal_I2C.h>
 
 // WiFi
@@ -14,15 +13,15 @@ const char *mqtt_broker = mqtt_broker_server;
 const int mqtt_port = mqtt_port_server;
 const char *mqtt_username = mqtt_username_server;
 const char *mqtt_password = mqtt_password_server;
-const char *topic = "/VARX/dht11";
+const char *topic = "/VARX/ultrasonic";
 
 WiFiClient espClient;
 PubSubClient client(espClient);
 
-#define DHT_SENSOR_PIN 15
-#define DHT_SENSOR_TYPE DHT11
-DHT dht_sensor(DHT_SENSOR_PIN, DHT_SENSOR_TYPE);
-LiquidCrystal_I2C lcd(0x27, 16, 2); // Setting Alamat I2C LCD dan ukuran LCD
+#define TRIG_PIN 2
+#define ECHO_PIN 15
+float duration_us, distance_cm;
+LiquidCrystal_I2C lcd(0x27, 16, 2);
 
 void setup()
 {
@@ -41,8 +40,11 @@ void setup()
   client.setServer(mqtt_broker, mqtt_port);
   client.setCallback(callback);
 
-  // init dht sensor
-  dht_sensor.begin();
+  // configure the trigger pin to output mode
+  pinMode(TRIG_PIN, OUTPUT);
+  // configure the echo pin to input mode
+  pinMode(ECHO_PIN, INPUT);
+
   // init lcd
   lcd.init();
   lcd.clear();
@@ -98,16 +100,26 @@ void reconnect()
 
 void loop()
 {
-  // send sensor dht 11 to mqtt broker
-  float temperature = dht_sensor.readTemperature();
-  float humidity = dht_sensor.readHumidity();
+  // generate 10-microsecond pulse to TRIG pin
+  digitalWrite(TRIG_PIN, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(TRIG_PIN, LOW);
+
+  // measure duration of pulse from ECHO pin
+  duration_us = pulseIn(ECHO_PIN, HIGH);
+
+  // calculate the distance
+  distance_cm = 0.017 * duration_us;
+
+  // print the value to Serial Monitor
+  Serial.print("Distance: ");
+  Serial.print(distance_cm);
+  Serial.println(" cm");
 
   // send JSON using ArduinoJson
   StaticJsonDocument<200> doc;
-  doc["dht11"]["temperature"]["value"] = temperature;
-  doc["dht11"]["temperature"]["unit"] = "C";
-  doc["dht11"]["humidity"]["value"] = humidity;
-  doc["dht11"]["humidity"]["unit"] = "%";
+  doc["distance"]["value"] = distance_cm;
+  doc["distance"]["unit"] = "cm";
   char payload[200];
   serializeJson(doc, payload);
 
@@ -115,16 +127,10 @@ void loop()
   client.publish(topic, payload);
   client.subscribe("/VARX/receive");
 
-  Serial.printf("Temperature: %.2f C, Humidity: %.2f %%\n", temperature, humidity);
-
   lcd.setCursor(2, 0);
-  lcd.print("Temperature: ");
-  lcd.print(temperature);
-  lcd.print(" C");
-  lcd.setCursor(2, 1);
-  lcd.print("Humidity: ");
-  lcd.print(humidity);
-  lcd.print(" %");
+  lcd.print("Distance: ");
+  lcd.print(distance_cm);
+  lcd.print(" cm");
   lcd.clear();
 
   delay(5000);
