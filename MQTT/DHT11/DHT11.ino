@@ -57,13 +57,14 @@ void callback(char *topic, byte *payload, unsigned int length)
   for (int i = 0; i < length; i++)
   {
     Serial.print((char)payload[i]);
-    lcd.setCursor(2, 0);
-    lcd.print("Message: ");
-    lcd.print((char)payload[i]);
+    // make lcd print scroll left
 
-    lcd.setCursor(2, 1);
-    lcd.print("Topic: ");
-    lcd.print(topic);
+    lcd.clear();
+    lcd.setCursor(1, 0);
+    lcd.print("Message:");
+
+    lcd.setCursor(0, 1);
+    lcd.print((char)payload[i]);
 
     delay(1000);
     lcd.clear();
@@ -81,17 +82,26 @@ void reconnect()
     Serial.printf("The client %s connects to the public mqtt broker\n", client_id.c_str());
     if (client.connect(client_id.c_str(), mqtt_username, mqtt_password))
     {
-      Serial.println("mqtt connected");
-      lcd.setCursor(2, 0);
+      lcd.setCursor(0, 0);
+      lcd.clear();
       lcd.print("MQTT Connected");
+
+      Serial.println("mqtt connected");
+
       delay(1000);
       lcd.clear();
     }
     else
     {
+      lcd.setCursor(0, 0);
+      lcd.clear();
+      lcd.print("MQTT Failed");
+
       Serial.print("failed with state ");
       Serial.print(client.state());
+
       delay(2000);
+      lcd.clear();
     }
   }
 }
@@ -117,15 +127,14 @@ void loop()
 
   Serial.printf("Temperature: %.2f C, Humidity: %.2f %%\n", temperature, humidity);
 
-  lcd.setCursor(2, 0);
-  lcd.print("Temperature: ");
+  lcd.setCursor(0, 0);
+  lcd.print("Temp: ");
   lcd.print(temperature);
   lcd.print(" C");
-  lcd.setCursor(2, 1);
-  lcd.print("Humidity: ");
+  lcd.setCursor(0, 1);
+  lcd.print("Humd: ");
   lcd.print(humidity);
   lcd.print(" %");
-  lcd.clear();
 
   delay(5000);
 
