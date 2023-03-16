@@ -25,7 +25,6 @@ LiquidCrystal_I2C lcd(0x27, 16, 2);
 
 void setup()
 {
-  // Set software serial baud to 115200;
   Serial.begin(115200);
   // connecting to a WiFi network
   WiFi.begin(ssid, password);
@@ -59,13 +58,14 @@ void callback(char *topic, byte *payload, unsigned int length)
   for (int i = 0; i < length; i++)
   {
     Serial.print((char)payload[i]);
-    lcd.setCursor(2, 0);
-    lcd.print("Message: ");
-    lcd.print((char)payload[i]);
+    // make lcd print scroll left
 
-    lcd.setCursor(2, 1);
-    lcd.print("Topic: ");
-    lcd.print(topic);
+    lcd.clear();
+    lcd.setCursor(1, 0);
+    lcd.print("Message:");
+
+    lcd.setCursor(0, 1);
+    lcd.print((char)payload[i]);
 
     delay(1000);
     lcd.clear();
@@ -83,16 +83,23 @@ void reconnect()
     Serial.printf("The client %s connects to the public mqtt broker\n", client_id.c_str());
     if (client.connect(client_id.c_str(), mqtt_username, mqtt_password))
     {
-      Serial.println("mqtt connected");
-      lcd.setCursor(2, 0);
-      lcd.print("MQTT Connected");
-      delay(1000);
+      lcd.setCursor(0, 0);
       lcd.clear();
+      lcd.print("MQTT Connected");
+
+      Serial.println("mqtt connected");
+
+      delay(1000);
     }
     else
     {
+      lcd.setCursor(0, 0);
+      lcd.clear();
+      lcd.print("MQTT Failed");
+
       Serial.print("failed with state ");
       Serial.print(client.state());
+
       delay(2000);
     }
   }
@@ -127,13 +134,12 @@ void loop()
   client.publish(topic, payload);
   client.subscribe("/VARX/receive");
 
-  lcd.setCursor(2, 0);
-  lcd.print("Distance: ");
+  lcd.setCursor(0, 1);
+  lcd.print("Jarak: ");
   lcd.print(distance_cm);
   lcd.print(" cm");
-  lcd.clear();
 
-  delay(5000);
+  delay(1000);
 
   if (!client.connected())
   {
