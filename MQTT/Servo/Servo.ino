@@ -54,12 +54,17 @@ void callback(char *topic, byte *payload, unsigned int length)
   String message;
   for (int i = 0; i < length; i++)
   {
-    message = message + (int)payload[i];
+    message = message + (char)payload[i]; // convert *byte to string
   }
   Serial.print(message);
 
   int angle = message.toInt();
   servoMotor.write(angle);
+
+  lcd.setCursor(0, 1);
+  lcd.print("Angle: ");
+  lcd.print(angle);
+  lcd.print("             ");
 
   Serial.println();
   Serial.println("-----------------------");
