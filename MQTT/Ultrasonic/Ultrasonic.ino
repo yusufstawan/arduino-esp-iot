@@ -132,6 +132,7 @@ void loop()
 
   // publish and subscribe
   client.publish(topic, payload);
+  client.subscribe("/VARX/receive");
 
   lcd.setCursor(0, 1);
   lcd.print("Jarak: ");

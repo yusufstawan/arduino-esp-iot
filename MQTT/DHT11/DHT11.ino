@@ -122,6 +122,7 @@ void loop()
 
   // publish and subscribe
   client.publish(topic, payload);
+  client.subscribe("/VARX/receive");
 
   Serial.printf("Temperature: %.2f C, Humidity: %.2f %%\n", temperature, humidity);
 

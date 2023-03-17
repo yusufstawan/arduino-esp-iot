@@ -4,8 +4,6 @@
 #include <ArduinoJson.h>
 #include <LiquidCrystal_I2C.h>
 
-#define LED 15
-
 // WiFi
 const char *ssid = wifi_ssid;
 const char *password = wifi_password;
@@ -19,6 +17,10 @@ const char *topic = "/VARX/led";
 
 WiFiClient espClient;
 PubSubClient client(espClient);
+
+// led pin
+#define LED 15
+LiquidCrystal_I2C lcd(0x27, 16, 2); // Setting Alamat I2C LCD dan ukuran LCD
 
 void setup()
 {
@@ -37,25 +39,11 @@ void setup()
   // connecting to a mqtt broker
   client.setServer(mqtt_broker, mqtt_port);
   client.setCallback(callback);
-  while (!client.connected())
-  {
-    String client_id = "mqtt-ledtoggle";
-    // client_id += String(WiFi.macAddress());
-    Serial.printf("The client %s connects to the public mqtt broker\n", client_id.c_str());
-    if (client.connect(client_id.c_str(), mqtt_username, mqtt_password))
-    {
-      Serial.println("Connected to the MQTT Broker");
-    }
-    else
-    {
-      Serial.print("Failed with state");
-      Serial.print(client.state());
-      delay(2000);
-    }
-  }
 
-  // publish and subscribe
-  client.subscribe(topic);
+  // init lcd
+  lcd.init();
+  lcd.clear();
+  lcd.backlight();
 }
 
 void callback(char *topic, byte *payload, unsigned int length)
@@ -71,16 +59,58 @@ void callback(char *topic, byte *payload, unsigned int length)
   if (message == "on")
   {
     digitalWrite(LED, HIGH);
+
+    lcd.setCursor(0, 1);
+    lcd.print("Lampu Hidup");
   }
   if (message == "off")
   {
     digitalWrite(LED, LOW);
+
+    lcd.setCursor(0, 1);
+    lcd.print("Lampu  Mati");
   }
   Serial.println();
   Serial.println("-----------------------");
 }
 
+void reconnect()
+{
+  if (!client.connected())
+  {
+    String client_id = "esp32-client-";
+    client_id += String(WiFi.macAddress());
+    Serial.printf("The client %s connects to the public mqtt broker\n", client_id.c_str());
+    if (client.connect(client_id.c_str(), mqtt_username, mqtt_password))
+    {
+      lcd.setCursor(0, 0);
+      lcd.clear();
+      lcd.print("MQTT Connected");
+
+      Serial.println("mqtt connected");
+
+      delay(1000);
+    }
+    else
+    {
+      lcd.setCursor(0, 0);
+      lcd.clear();
+      lcd.print("MQTT Failed");
+
+      Serial.print("failed with state ");
+      Serial.print(client.state());
+
+      delay(2000);
+    }
+  }
+}
+
 void loop()
 {
+  client.subscribe(topic);
+  if (!client.connected())
+  {
+    reconnect();
+  }
   client.loop();
 }
