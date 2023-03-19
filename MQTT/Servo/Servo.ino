@@ -58,7 +58,9 @@ void callback(char *topic, byte *payload, unsigned int length)
   }
   Serial.print(message);
 
+  // convert string to int
   int angle = message.toInt();
+  // update servo
   servoMotor.write(angle);
 
   lcd.setCursor(0, 1);
