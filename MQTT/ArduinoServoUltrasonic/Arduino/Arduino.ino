@@ -8,7 +8,7 @@ void setup()
 {
   Serial.begin(9600);
 
-  myservo.attach(9);
+  myservo.attach(6);
   pinMode(TRIG_PIN, OUTPUT);
   pinMode(ECHO_PIN, INPUT);
 }
