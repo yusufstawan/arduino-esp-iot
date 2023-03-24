@@ -43,13 +43,13 @@ void loop()
   else
   {
     StaticJsonDocument<200> doc;
-    doc["deteksiBanjir"]["value"] = Serial.readString();
-    doc["deteksiBanjir"]["timestamp"] = millis();
+    doc["deteksiBanjir"]["value"] = Serial.readStringUntil('\0');
+    doc["deteksiBanjir"]["timestamp"] = __DATE__ " " __TIME__;
     char payload[200];
     serializeJson(doc, payload);
 
     client.publish(topic, payload);
-    Serial.println("Message sent");
+    Serial.println("Data Arduino send to mqtt broker");
     delay(1000);
   }
 }

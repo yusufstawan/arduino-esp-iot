@@ -43,13 +43,13 @@ void loop()
   else
   {
     StaticJsonDocument<200> doc;
-    doc["statusLampu"]["value"] = Serial.readString();
-    doc["statusLampu"]["timestamp"] = millis();
+    doc["statusLampu"]["value"] = Serial.readStringUntil('\0');
+    doc["statusLampu"]["timestamp"] = __DATE__ " " __TIME__;
     char payload[200];
     serializeJson(doc, payload);
 
     client.publish(topic, payload);
-    Serial.println("Message sent");
+    Serial.println("Data Arduino send to mqtt broker");
     delay(1000);
   }
 }

@@ -16,13 +16,15 @@ void loop()
   if (cahaya < 50)
   {
     digitalWrite(led, HIGH);
-    Serial.println("Lampu menyala");
+    Serial.print("Lampu Menyala");
+    Serial.write('\0');
     delay(1000);
   }
   else
   {
     digitalWrite(led, LOW);
-    Serial.println("Lampu mati");
+    Serial.print("Lampu Mati");
+    Serial.write('\0');
     delay(1000);
   }
 }

@@ -14,16 +14,18 @@ void loop()
 {
   int val = analogRead(sensorPin);
 
-  if (val < 50)
+  if (val > 300)
   {
     digitalWrite(ledPin, HIGH);
-    Serial.println("Lampu menyala");
+    Serial.print("Terjadi Banjir - Lampu Menyala");
+    Serial.write('\0');
     delay(1000);
   }
   else
   {
     digitalWrite(ledPin, LOW);
-    Serial.println("Lampu mati");
+    Serial.print("Aman - Lampu Mati");
+    Serial.write('\0');
     delay(1000);
   }
 }

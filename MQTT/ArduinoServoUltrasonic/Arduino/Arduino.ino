@@ -25,13 +25,15 @@ void loop()
   if (distance_cm < 10)
   {
     myservo.write(180);
-    Serial.println("Pintu terbuka");
-    delay(2000);
+    Serial.print("Pintu Terbuka");
+    Serial.write('\0');
+    delay(1000);
   }
   else
   {
     myservo.write(0);
-    Serial.println("Pintu tertutup");
-    delay(2000);
+    Serial.print("Pintu Tertutup");
+    Serial.write('\0');
+    delay(1000);
   }
 }
